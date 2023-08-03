@@ -9,6 +9,7 @@ import Stripe from "stripe";
 
 interface HomeProps {
   products: {
+    map(arg0: (products: any) => import("react").JSX.Element): import("react").ReactNode;
     id: string;
     name: string;
     imageUrl: string;
@@ -28,7 +29,11 @@ export default function Home({products}: HomeProps) {
     <HomeContainer ref={sliderRef} className="keen-slider">
       {products.map(products => {
         return (
-          <Product key={products.id} className="keen-slider__slide"> 
+          <Product 
+          href={`/product/${products.id}`} 
+          key={products.id} 
+          className="keen-slider__slide"
+          > 
           <Image src={products.imageUrl} alt="" width={520} height={480}/>
   
           <footer>
