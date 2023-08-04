@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from 'next/link'
 import { HomeContainer, Product } from "../styles/pages/home";
 import { useKeenSlider } from 'keen-slider/react'
 
@@ -9,12 +10,12 @@ import Stripe from "stripe";
 
 interface HomeProps {
   products: {
-    map(arg0: (products: any) => import("react").JSX.Element): import("react").ReactNode;
+    // map(arg0: (products: any) => import("react").JSX.Element): import("react").ReactNode;
     id: string;
     name: string;
     imageUrl: string;
     price: number;
-  }
+  }[]
 }
 
 export default function Home({products}: HomeProps) {
@@ -29,18 +30,16 @@ export default function Home({products}: HomeProps) {
     <HomeContainer ref={sliderRef} className="keen-slider">
       {products.map(products => {
         return (
-          <Product 
-          href={`/product/${products.id}`} 
-          key={products.id} 
-          className="keen-slider__slide"
-          > 
-          <Image src={products.imageUrl} alt="" width={520} height={480}/>
+          <Link  href={`/product/${products.id}`}  key={products.id} >
+            <Product className="keen-slider__slide"> 
+              <Image src={products.imageUrl} alt="" width={520} height={480}/>
   
-          <footer>
-            <strong>{products.name}</strong>
-            <span>{products.price}</span>
-          </footer>
-        </Product>
+              <footer>
+                <strong>{products.name}</strong>
+                <span>{products.price}</span>
+              </footer>
+            </Product>
+          </Link>
         )
       })}
     </HomeContainer>
